@@ -1,11 +1,15 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
+const app = express();
 const router = express.Router();
 
-router.post("/ussd", (req, res) => {
+// Middleware to parse JSON request bodies
+app.use(bodyParser.json());
 
+// Route to handle USSD requests
+router.post("/ussd", (req, res) => {
   // Read variables sent via POST from our SDK
-  
   const { sessionId, serviceCode, text } = req.body;
 
   console.log('####################', req.body);
@@ -25,14 +29,10 @@ router.post("/ussd", (req, res) => {
         6. Learn About Fiscal Policies `;
   } else if (text === "1") {
     // Business logic for first level response
-    // response = `CON Please enter your registration number:
-    //     1. Yes
-    //     2. No`;
     response = `END Rwanda's National Budget is Rwf 5,690.1 billion`;
 
   } else if (text === "2") {
     // Business logic for first level response, option 2
-    // Start the response with END since it does not proceed further, (terminal request) it ENDs
     response = `CON Select a Province
     1. Kigali
     2. Southern Province
@@ -40,104 +40,43 @@ router.post("/ussd", (req, res) => {
     4. Eastern Province
     5. Western Province`;
   } else if (text === "2*1") {
-    
     response = `END Kigali's local budget is Rwf 265.9 billion`;
-  
   } else if (text === "2*2") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
     response = `END Southern Province's local budget is Rwf 125.8 billion `;
-  }
-  else if (text === "2*3") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "2*3") {
     response = `END Northern Province's local budget is Rwf 166.2 billion`;
-  }
-  else if (text === "2*4") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "2*4") {
     response = `END Eastern Province's local budget is Rwf 187.7 billion`;
-  }
-  else if (text === "2*5") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "2*5") {
     response = `END Western Province's local budget is Rwf 126.4 billion`;
-  }
-  else if (text === "3") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "3") {
     response = `CON Which specific expenditure would do you want to track?
     1. Education
     2. Health
     3. Infrastructure`;
-  }
-  else if (text === "3*1") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "3*1") {
     response = `END Educational expenditure is Rwf 240.9 billion`;
-  }
-  else if (text === "3*2") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "3*2") {
     response = `END Health's expenditure is Rwf 130.5 billion`;
-  }
-  else if (text === "3*3") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "3*3") {
     response = `END Infrastructure's expenditure is Rwf 306.7 billion`;
-  }
-  else if (text === "4") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "4") {
     response = `CON Select an option below 
     1. Mismanagement of Funds
     2. Unfair Budget Distribution`;
-  }
-  else if (text === "4*1") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "4*1") {
     response = `END Thank You! Your report has been taken into consideration`;
-  }
-  else if (text === "4*2") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "4*2") {
     response = `END Thank You! Your report has been taken into consideration`;
-  }
-  else if (text === "5") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "5") {
     response = `CON How satisfied are you with the Fiscal Openness of the Government?
     1. Satisfied
     2. Dissatisfied`;
-  }
-  else if (text === "5*1") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "5*1") {
     response = `END Thank you for your feedback!`;
-  }
-  else if (text === "5*2") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "5*2") {
     response = `END Thank you for your feedback!`;
-  }
-  else if (text === "6") {
-    // This is a second level response
-    // 1 was selected in the first level, 2 in the second level
-    // The response starts with END since it is a terminal request
+  } else if (text === "6") {
     response = `END To learn more about our policies visit our nearest District Office`;
   }
 
@@ -146,4 +85,11 @@ router.post("/ussd", (req, res) => {
   res.send(response);
 });
 
-module.exports = router;
+// Use the router for /ussd endpoint
+app.use("/", router);
+
+// Start the server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
