@@ -70,14 +70,6 @@ router.post("/ussd", (req, res) => {
     response = `END Thank you for your feedback! `;
   } else if (text === "5*2") {
     response = `END Thank you for your feedback! `;
-  } else {
-      response = `CON Choose an option to proceed:
-          1. View National Budget
-          2. View Local Budget
-          3. Track Specific Expenditures
-          4. Report Concerns
-          5. Provide Feedback
-          6. Learn About Fiscal Policies `;
   }
   
 
