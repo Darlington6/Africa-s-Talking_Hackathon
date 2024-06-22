@@ -32,49 +32,49 @@ router.post("/ussd", (req, res) => {
     2. Southern Province
     3. Northern Province
     4. Eastern Province
-    5. Western Province`;
+    5. Western Province `;
   } else if (text === "2*1") {
-    response = `END Kigali's local budget is Rwf 265.9 billion`;
+    response = `END Kigali's local budget is Rwf 265.9 billion `;
   } else if (text === "2*2") {
-    response = `END Southern Province's local budget is Rwf 125.8 billion`;
+    response = `END Southern Province's local budget is Rwf 125.8 billion `;
   } else if (text === "2*3") {
-    response = `END Northern Province's local budget is Rwf 166.2 billion`;
+    response = `END Northern Province's local budget is Rwf 166.2 billion `;
   } else if (text === "2*4") {
-    response = `END Eastern Province's local budget is Rwf 187.7 billion`;
+    response = `END Eastern Province's local budget is Rwf 187.7 billion `;
   } else if (text === "2*5") {
-    response = `END Western Province's local budget is Rwf 126.4 billion`;
+    response = `END Western Province's local budget is Rwf 126.4 billion `;
   } else if (text === "3") {
     response = `CON Which specific expenditure would you want to track?
     1. Education
     2. Health
-    3. Infrastructure`;
+    3. Infrastructure `;
   } else if (text === "3*1") {
-    response = `END Educational expenditure is Rwf 240.9 billion`;
+    response = `END Educational expenditure is Rwf 240.9 billion `;
   } else if (text === "3*2") {
-    response = `END Health's expenditure is Rwf 130.5 billion`;
+    response = `END Health's expenditure is Rwf 130.5 billion `;
   } else if (text === "3*3") {
-    response = `END Infrastructure's expenditure is Rwf 306.7 billion`;
+    response = `END Infrastructure's expenditure is Rwf 306.7 billion `;
   } else if (text === "4") {
     response = `CON Select an option below 
     1. Mismanagement of Funds
-    2. Unfair Budget Distribution`;
+    2. Unfair Budget Distribution `;
   } else if (text === "4*1") {
-    response = `END Thank You! Your report has been taken into consideration`;
+    response = `END Thank You! Your report has been taken into consideration `;
   } else if (text === "4*2") {
-    response = `END Thank You! Your report has been taken into consideration`;
+    response = `END Thank You! Your report has been taken into consideration `;
   } else if (text === "5") {
     response = `CON How satisfied are you with the Fiscal Openness of the Government?
     1. Satisfied
-    2. Dissatisfied`;
+    2. Dissatisfied `;
   } else if (text === "5*1") {
-    response = `END Thank you for your feedback!`;
+    response = `END Thank you for your feedback! `;
   } else if (text === "5*2") {
-    response = `END Thank you for your feedback!`;
+    response = `END Thank you for your feedback! `;
   } else if (text === "6") {
-    response = `END To learn more about our policies visit our nearest District Office`;
+    response = `END To learn more about our policies visit our nearest District Office `;
   } else {
     // Handle unrecognized input or errors
-    response = `END Invalid input. Please try again.`;
+    response = `END Invalid input. Please try again. `;
   }
 
   // Print the response onto the page so that our SDK can read it
