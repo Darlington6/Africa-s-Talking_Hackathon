@@ -68,11 +68,7 @@ router.post("/ussd", (req, res) => {
     2. Dissatisfied `;
   } else if (text === "5*1") {
     response = `END Thank you for your feedback! `;
-  } else if (text === "5*2") {
-    response = `END Thank you for your feedback! `;
   }
-  
-
   // Print the response onto the page so that our SDK can read it
   res.set("Content-Type", "text/plain");
   res.send(response);
