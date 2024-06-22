@@ -17,9 +17,6 @@ router.post("/ussd", (req, res) => {
 
   // Chained IF statements will take us through the USSD logic
   if (text === "") {
-    console.log(text);
-    // This is the first request 
-    // Start responses with CON if they have further options/they CONtinue
     response = `CON Choose an option to proceed:
         1. View National Budget
         2. View Local Budget
@@ -28,11 +25,8 @@ router.post("/ussd", (req, res) => {
         5. Provide Feedback
         6. Learn About Fiscal Policies `;
   } else if (text === "1") {
-    // Business logic for first level response
     response = `END Rwanda's National Budget is Rwf 5,690.1 billion`;
-
   } else if (text === "2") {
-    // Business logic for first level response, option 2
     response = `CON Select a Province
     1. Kigali
     2. Southern Province
@@ -42,7 +36,7 @@ router.post("/ussd", (req, res) => {
   } else if (text === "2*1") {
     response = `END Kigali's local budget is Rwf 265.9 billion`;
   } else if (text === "2*2") {
-    response = `END Southern Province's local budget is Rwf 125.8 billion `;
+    response = `END Southern Province's local budget is Rwf 125.8 billion`;
   } else if (text === "2*3") {
     response = `END Northern Province's local budget is Rwf 166.2 billion`;
   } else if (text === "2*4") {
@@ -50,7 +44,7 @@ router.post("/ussd", (req, res) => {
   } else if (text === "2*5") {
     response = `END Western Province's local budget is Rwf 126.4 billion`;
   } else if (text === "3") {
-    response = `CON Which specific expenditure would do you want to track?
+    response = `CON Which specific expenditure would you want to track?
     1. Education
     2. Health
     3. Infrastructure`;
@@ -78,15 +72,24 @@ router.post("/ussd", (req, res) => {
     response = `END Thank you for your feedback!`;
   } else if (text === "6") {
     response = `END To learn more about our policies visit our nearest District Office`;
+  } else {
+    // Handle unrecognized input or errors
+    response = `END Invalid input. Please try again.`;
   }
 
   // Print the response onto the page so that our SDK can read it
-  res.set("Content-Type: text/plain");
+  res.set("Content-Type", "text/plain");
   res.send(response);
 });
 
 // Use the router for /ussd endpoint
 app.use("/", router);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // Start the server
 const PORT = process.env.PORT || 4000;
