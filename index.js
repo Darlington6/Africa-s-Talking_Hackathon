@@ -6,6 +6,7 @@ const router = express.Router();
 
 // Middleware to parse JSON request bodies
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}))
 
 // Route to handle USSD requests
 router.post("/ussd", (req, res) => {
@@ -22,8 +23,7 @@ router.post("/ussd", (req, res) => {
         2. View Local Budget
         3. Track Specific Expenditures
         4. Report Concerns
-        5. Provide Feedback
-        6. Learn About Fiscal Policies `;
+        5. Provide Feedback`;
   } else if (text === "1") {
     response = `END Rwanda's National Budget is Rwf 5,690.1 billion`;
   } else if (text === "2") {
@@ -63,11 +63,7 @@ router.post("/ussd", (req, res) => {
   } else if (text === "4*2") {
     response = `END Thank You! Your report has been taken into consideration `;
   } else if (text === "5") {
-    response = `CON How satisfied are you with the Fiscal Openness of the Government?
-    1. Satisfied
-    2. Dissatisfied `;
-  } else if (text === "5*1") {
-    response = `END Thank you for your feedback! `;
+    response = `END Thank You`;
   }
   // Print the response onto the page so that our SDK can read it
   res.set("Content-Type", "text/plain");
