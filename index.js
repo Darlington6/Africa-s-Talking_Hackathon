@@ -72,10 +72,7 @@ router.post("/ussd", (req, res) => {
     response = `END Thank you for your feedback! `;
   } else if (text === "6") {
     response = `END To learn more about our policies visit our nearest District Office `;
-  } else {
-    // Handle unrecognized input or errors
-    response = `END Invalid input. Please try again. `;
-  }
+  } 
 
   // Print the response onto the page so that our SDK can read it
   res.set("Content-Type", "text/plain");
