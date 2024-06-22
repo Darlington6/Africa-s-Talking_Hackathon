@@ -70,7 +70,7 @@ router.post("/ussd", (req, res) => {
     response = `END Thank you for your feedback! `;
   } else if (text === "5*2") {
     response = `END Thank you for your feedback! `;
-  } else if (text === "6") {
+  } else (text === "6") {
     response = `END To learn more about our policies visit our nearest District Office `;
   } 
 
